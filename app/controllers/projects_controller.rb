@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_project, only: [:show, :update, :destroy]
 
   def index
     render json: current_user.owned_projects.order(:name), status: :ok
@@ -14,7 +15,23 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def show
+    render json: @project, status: :ok
+  end
+
+  def update
+
+  end
+
+  def destroy
+
+  end
+
   private
+
+  def set_project
+    @project = Project.find_by(id: params[:id])
+  end
 
   def project_params
     params.require(:project).permit(
