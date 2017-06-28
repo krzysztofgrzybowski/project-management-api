@@ -1,6 +1,6 @@
 class ProjectAssignmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:update, :destroy]
+  before_action :set_project_assignment, only: [:update, :destroy]
 
   def create
 
