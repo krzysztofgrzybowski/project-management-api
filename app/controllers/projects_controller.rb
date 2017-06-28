@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
     if project.save
       render json: project, status: :ok
     else
-      render json: { errors: project.errors }, status: :unprocessable_rntity
+      render json: { errors: project.errors }, status: :unprocessable_entity
     end
   end
 
@@ -20,11 +20,14 @@ class ProjectsController < ApplicationController
   end
 
   def update
-
+    if @project.update(project_params)
+      render json: @project, status: :ok
+    else
+      render json: { errors: @project.errors }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-
   end
 
   private
