@@ -11,6 +11,7 @@ gem 'puma', '~> 3.7'
 gem 'rack-cors'
 gem 'devise_token_auth'
 gem 'omniauth'
+gem 'devise_invitable', '~> 1.7.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
