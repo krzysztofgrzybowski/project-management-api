@@ -7,11 +7,15 @@ class ProjectAssignmentsController < ApplicationController
     unless user
       user = User.invite!(email: params[:email])
     end
-    project_assignment = ProjectAssignment.new(user_id: user.id, project_id: params[:project_id], role: params[:role])
-    if project_assignment.save
-      render json: project_assignment, status: :ok
+    if user.errors.messages.empty?
+      project_assignment = ProjectAssignment.new(user_id: user.id, project_id: params[:project_id], role: params[:role])
+      if project_assignment.save
+        render json: project_assignment, status: :ok
+      else
+        render json: { errors: project_assignment.errors }, status: :unprocessable_entity
+      end
     else
-      render json: { errors: project_assignment.errors }, status: :unprocessable_entity
+      render json: { errors: user.errors.messages }, status: :unprocessable_entity
     end
   end
 
