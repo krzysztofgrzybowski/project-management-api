@@ -4,5 +4,6 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :owned_projects, class_name: "Project", foreign_key: "owner_id"
+  has_many :project_assignments
   has_many :assigned_projects, through: :project_assignments, source: :project
 end

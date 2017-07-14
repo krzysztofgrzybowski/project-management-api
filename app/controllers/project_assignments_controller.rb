@@ -1,6 +1,6 @@
 class ProjectAssignmentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project_assignment, only: [:update, :destroy]
+  before_action :set_project_assignment, only: [:show, :update, :destroy]
 
   def create
     user = User.find_by(email: params[:email].strip)
@@ -19,6 +19,10 @@ class ProjectAssignmentsController < ApplicationController
     end
   end
 
+  def show
+    render json: @project_assignment
+  end
+
   def update
     if @project_assignment.update(project_assignment_params)
       render json: @project_assignment, status: :ok
@@ -28,15 +32,14 @@ class ProjectAssignmentsController < ApplicationController
   end
 
   def destroy
+    @project_assignment.destroy
+    render json: {}
   end
 
   private
 
   def set_project_assignment
-    @project_assignment = ProjectAssignment.find_by(
-                            user_id: params[:user_id],
-                            project_id: params[:project_id]
-                          )
+    @project_assignment = ProjectAssignment.find_by(id: params[:id])
   end
 
   def project_assignment_params

@@ -9,6 +9,7 @@ class ProjectsController < ApplicationController
   def create
     project = current_user.owned_projects.new(project_params)
     if project.save
+      ProjectAssignment.create(project: project, user: current_user, role: 'admin')
       render json: project, status: :ok
     else
       render json: { errors: project.errors }, status: :unprocessable_entity
@@ -31,7 +32,7 @@ class ProjectsController < ApplicationController
   end
 
   def team_members
-    render json: @project.members
+    render json: @project.members.select('users.*, project_assignments.project_id as project_id, project_assignments.id as project_assignment_id, project_assignments.role').joins(:project_assignments)
   end
 
   private

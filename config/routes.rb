@@ -9,5 +9,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :project_assignments, only: [:create, :update, :destroy]
+  resources :project_assignments, only: [:create, :show, :update, :destroy]
 end
