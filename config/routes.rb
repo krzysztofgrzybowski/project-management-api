@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   root to: 'projects#index'
 
-  resources :projects
+  resources :projects do
+    member do
+      get 'team_members'
+    end
+  end
 
   resources :project_assignments, only: [:create, :update, :destroy]
 end

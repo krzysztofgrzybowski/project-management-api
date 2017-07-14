@@ -3,9 +3,9 @@ class ProjectAssignmentsController < ApplicationController
   before_action :set_project_assignment, only: [:update, :destroy]
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: params[:email].strip)
     unless user
-      user = User.invite!(email: params[:email])
+      user = User.invite!(email: params[:email].strip)
     end
     if user.errors.messages.empty?
       project_assignment = ProjectAssignment.new(user_id: user.id, project_id: params[:project_id], role: params[:role])

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:show, :update, :destroy]
+  before_action :set_project, only: [:show, :update, :destroy, :team_members]
 
   def index
     render json: current_user.owned_projects.order(:name), status: :ok
@@ -28,6 +28,10 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def team_members
+    render json: @project.members
   end
 
   private
