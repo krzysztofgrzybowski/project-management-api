@@ -32,7 +32,10 @@ class ProjectsController < ApplicationController
   end
 
   def team_members
-    render json: @project.members.select('users.*, project_assignments.project_id as project_id, project_assignments.id as project_assignment_id, project_assignments.role').joins(:project_assignments)
+    render json: @project.members
+      .joins(:project_assignments)
+      .select('users.*, project_assignments.project_id as project_id, project_assignments.id as project_assignment_id, project_assignments.role')
+      .uniq
   end
 
   private
