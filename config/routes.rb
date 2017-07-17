@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     member do
       get 'team_members'
     end
+    collection do
+      get 'assigned'
+    end
   end
 
   resources :project_assignments, only: [:create, :show, :update, :destroy]

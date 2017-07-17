@@ -6,6 +6,10 @@ class ProjectsController < ApplicationController
     render json: current_user.owned_projects.order(:name), status: :ok
   end
 
+  def assigned
+    render json: current_user.assigned_projects.order(:name), status: :ok
+  end
+
   def create
     project = current_user.owned_projects.new(project_params)
     if project.save
