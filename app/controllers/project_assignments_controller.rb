@@ -23,6 +23,10 @@ class ProjectAssignmentsController < ApplicationController
     render json: @project_assignment
   end
 
+  def for_project
+    render json: ProjectAssignment.find_by(user: current_user, project_id: params[:project_id])
+  end
+
   def update
     if @project_assignment.update(project_assignment_params)
       render json: @project_assignment, status: :ok

@@ -7,7 +7,9 @@ class ProjectsController < ApplicationController
   end
 
   def assigned
-    render json: current_user.assigned_projects.order(:name), status: :ok
+    render json: current_user.assigned_projects.joins(:project_assignments)
+      .select('projects.*, project_assignments.id as project_assignment_id, project_assignments.role')
+      .order(:name).uniq, status: :ok
   end
 
   def create

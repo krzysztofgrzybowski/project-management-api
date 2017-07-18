@@ -12,5 +12,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :project_assignments, only: [:create, :show, :update, :destroy]
+  resources :project_assignments, only: [:create, :show, :update, :destroy] do
+    collection do
+      get 'for_project'
+    end
+  end
 end
